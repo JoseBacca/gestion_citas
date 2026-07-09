@@ -1,0 +1,54 @@
+﻿.lobby-section { margin-bottom: var(--space-6); }
+.lobby-header { margin-bottom: var(--space-6); }
+.lobby-title { display: flex; align-items: center; gap: var(--space-3); font-size: var(--text-2xl); font-weight: 700; color: var(--gray-900); }
+.lobby-title-icon { color: var(--sena-green); }
+.lobby-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-5); }
+.lobby-card { position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); padding: var(--space-8) var(--space-5); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); background: var(--sena-white); cursor: pointer; transition: all var(--transition-base); text-align: center; font-family: inherit; width: 100%; overflow: hidden; }
+.lobby-card::before { content: ""; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--card-color, var(--sena-green)); transform: scaleX(0); transition: transform var(--transition-base); }
+.lobby-card:hover { border-color: var(--card-color, var(--sena-green)); box-shadow: var(--shadow-card-hover); transform: translateY(-4px); }
+.lobby-card:hover::before { transform: scaleX(1); }
+.lobby-card-icon { display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: var(--radius-lg); transition: transform var(--transition-base); }
+.lobby-card:hover .lobby-card-icon { transform: scale(1.1); }
+.lobby-card-name { font-size: var(--text-base); font-weight: 600; color: var(--gray-800); margin: 0; }
+.lobby-card-desc { font-size: var(--text-sm); color: var(--gray-500); margin: 0; line-height: 1.5; }
+.lobby-card-action { font-size: var(--text-sm); font-weight: 600; color: var(--card-color, var(--sena-green)); margin-top: auto; padding: 0.4rem 1.25rem; border-radius: var(--radius-full); background: var(--card-bg, var(--sena-green-light)); transition: all var(--transition-base); }
+.lobby-card:hover .lobby-card-action { background: var(--card-color, var(--sena-green)); color: white; }
+
+.appointment-card { background: var(--sena-white); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-card); transition: all var(--transition-base); border: 1px solid var(--gray-100); }
+.appointment-card:hover { box-shadow: var(--shadow-card-hover); transform: translateY(-1px); }
+.appointment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4); }
+.status-badge { display: inline-flex; align-items: center; gap: var(--space-1); font-size: var(--text-xs); font-weight: 600; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); }
+.status-pending { background: var(--color-warning-light); color: #92400e; }
+.status-confirmed { background: var(--color-info-light); color: #1e40af; }
+.status-completed { background: var(--color-success-light); color: #065f46; }
+.status-cancelled { background: var(--color-error-light); color: #991b1b; }
+.status-no_show { background: #f3e8ff; color: #6b21a8; }
+.appointment-body { display: flex; flex-direction: column; gap: var(--space-2); }
+.appointment-body p { font-size: var(--text-sm); color: var(--gray-600); display: flex; align-items: center; gap: var(--space-2); }
+.appointment-body p strong { color: var(--gray-800); font-weight: 600; min-width: 100px; }
+.professional-actions { display: flex; gap: var(--space-3); margin-top: var(--space-4); padding-top: var(--space-4); border-top: 1px solid var(--gray-100); }
+.appointments-wrapper { background: var(--sena-white); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-card); border: 1px solid var(--gray-100); margin-bottom: var(--space-4); }
+.appointment-form { display: flex; flex-direction: column; gap: var(--space-5); }
+
+.time-slots { margin: var(--space-2) 0; }
+.time-slot-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(85px, 1fr)); gap: var(--space-2); }
+.time-slot { padding: 0.6rem 0.5rem; border: 2px solid var(--gray-200); border-radius: var(--radius-md); background: var(--sena-white); cursor: pointer; font-size: var(--text-sm); font-weight: 600; font-family: var(--font-mono); transition: all var(--transition-fast); text-align: center; color: var(--gray-700); }
+.time-slot:hover:not(:disabled) { border-color: var(--sena-green); background: var(--sena-green-light); color: var(--sena-green-dark); }
+.time-slot.selected { border-color: var(--sena-green); background: var(--sena-green); color: white; box-shadow: 0 2px 8px rgba(57,169,0,0.3); transform: scale(1.02); }
+.time-slot.unavailable { border-color: var(--gray-200); background: var(--gray-50); color: var(--gray-400); cursor: not-allowed; text-decoration: line-through; }
+.time-slot:disabled:not(.unavailable) { opacity: 0.5; cursor: not-allowed; }
+
+details.appointments-history { margin-top: var(--space-4); border-top: 1px solid var(--gray-100); padding-top: var(--space-4); }
+details.appointments-history summary { cursor: pointer; color: var(--gray-500); font-size: var(--text-sm); font-weight: 600; padding: var(--space-2) 0; list-style: none; }
+details.appointments-history summary:hover { color: var(--sena-green); }
+.appointments-list { display: flex; flex-direction: column; gap: var(--space-4); }
+
+.form-steps { display: flex; align-items: center; justify-content: center; gap: var(--space-2); margin-bottom: var(--space-6); padding: var(--space-4); background: var(--gray-50); border-radius: var(--radius-md); }
+.form-step { display: flex; align-items: center; gap: var(--space-2); }
+.form-step-number { width: 28px; height: 28px; border-radius: var(--radius-full); display: flex; align-items: center; justify-content: center; font-size: var(--text-xs); font-weight: 700; background: var(--gray-200); color: var(--gray-500); transition: all var(--transition-base); }
+.form-step.active .form-step-number { background: var(--sena-green); color: white; box-shadow: 0 2px 8px rgba(57,169,0,0.3); }
+.form-step.completed .form-step-number { background: var(--color-success); color: white; }
+.form-step-label { font-size: var(--text-xs); font-weight: 500; color: var(--gray-400); }
+.form-step.active .form-step-label { color: var(--gray-700); font-weight: 600; }
+.form-step-divider { width: 40px; height: 2px; background: var(--gray-200); border-radius: 1px; }
+.form-step.completed + .form-step-divider { background: var(--color-success); }
