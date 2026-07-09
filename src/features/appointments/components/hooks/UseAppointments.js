@@ -14,7 +14,7 @@ export function useAppointments() {
     const [appointments, setAppointments] = useState([]);
     const [status, setStatus] = useState(STATUS.IDLE);
     const [error, setError] = useState(null);
-    const { user, profile, isAprendiz } = useAuth();
+    const { user, isAprendiz } = useAuth();
 
     const fetchAppointments = useCallback(
         async (filters = {}) => {
@@ -43,7 +43,7 @@ export function useAppointments() {
                 setStatus(STATUS.IDLE);
             }
         },
-        [user, profile, isAprendiz],
+        [user, isAprendiz],
     );
 
     const createAppointment = async (formData) => {

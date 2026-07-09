@@ -38,14 +38,13 @@ describe('isAdmin', () => {
   });
 
   it('CP-017: APRENDIZ no es admin', () => {
-    const hasRole = createHasRole('APRENDIZ');
-    expect(hasRole('SUPERADMIN')).toBe(false);
+    const fn = createHasRole('APRENDIZ');
+    expect(fn('SUPERADMIN')).toBe(false);
   });
 });
 
 describe('isProfessional', () => {
   it('CP-018: PSICOLOGIA es profesional', () => {
-    const hasRole = createHasRole('PSICOLOGIA');
     const professionals = ['PSICOLOGIA', 'ENFERMERIA', 'TRABAJO_SOCIAL'];
     expect(professionals.includes('PSICOLOGIA')).toBe(true);
   });

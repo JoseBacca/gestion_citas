@@ -1,4 +1,6 @@
 // Mock de Supabase Client
+import { vi } from 'vitest';
+
 const mockSupabase = {
   from: vi.fn(() => mockSupabase),
   select: vi.fn(() => mockSupabase),
@@ -15,7 +17,7 @@ const mockSupabase = {
   then: vi.fn((cb) => cb({ data: [], error: null })),
 };
 
-vi.mock('../lib/supabase', () => ({
+vi.mock('../../lib/supabase', () => ({
   supabase: mockSupabase,
 }));
 

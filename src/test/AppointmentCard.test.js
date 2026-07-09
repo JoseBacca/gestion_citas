@@ -1,14 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen } from '@testing-library/react';
-
-// Mock date-fns
-vi.mock('date-fns', () => ({
-  format: vi.fn(() => 'lunes 15 de julio'),
-}));
-
-vi.mock('date-fns/locale', () => ({
-  es: {},
-}));
+import { describe, it, expect } from 'vitest';
 
 // Simple AppointmentCard test (without full provider tree)
 describe('AppointmentCard - Renderizado', () => {
