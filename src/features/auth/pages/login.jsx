@@ -2,7 +2,7 @@
 import { supabase } from "../../../lib/supabase";
 import { useAuth } from "../../../providers/Authproviders";
 import { useNavigate, Link } from "react-router-dom";
-import { Loader2, Mail, Calendar, Shield, Users, Heart } from "lucide-react";
+import { Loader2, Mail, Calendar, Shield, Users, Heart, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 
 export default function Login() {
@@ -12,6 +12,7 @@ export default function Login() {
     const [showReset, setShowReset] = useState(false);
     const [resetEmail, setResetEmail] = useState("");
     const [sendingReset, setSendingReset] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const { signIn, error, profile } = useAuth();
     const navigate = useNavigate();
 
@@ -100,9 +101,14 @@ export default function Login() {
                                         <label htmlFor="login-email">Email</label>
                                         <input id="login-email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu.email@gmail.com" required disabled={loading} />
                                     </div>
-                                    <div className="field">
+                                    <div className="field" style={{ position: "relative" }}>
                                         <label htmlFor="login-password">Contrasena</label>
-                                        <input id="login-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Tu contrasena" required disabled={loading} />
+                                        <div style={{ position: "relative" }}>
+                                            <input id="login-password" type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Tu contrasena" required disabled={loading} style={{ paddingRight: "2.5rem" }} />
+                                            <button type="button" onClick={() => setShowPassword(!showPassword)} style={{ position: "absolute", right: "0.5rem", top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--gray-400)", padding: "4px", display: "flex", alignItems: "center" }}>
+                                                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                                            </button>
+                                        </div>
                                     </div>
                                     <button type="submit" disabled={loading} className="btn-primary btn-lg">
                                         {loading ? <><Loader2 size={18} className="spin" /> Entrando...</> : "Iniciar Sesion"}
