@@ -24,6 +24,7 @@ export class AppointmentRepository {
     let query = supabase.from("appointments").select("*, dependencies(name, color)");
 
     if (filters.userId) query = query.eq("user_id", filters.userId);
+    if (filters.professionalId) query = query.eq("professional_id", filters.professionalId);
     if (filters.dependencyId) query = query.eq("dependency_id", filters.dependencyId);
     if (filters.status) query = query.eq("status", filters.status);
 

@@ -26,11 +26,7 @@ export function useAppointments() {
 
                 const roleFilters = isAprendiz()
                     ? { userId: user.id }
-                    : { dependencyId: profile?.dependency_id || profile?.dependency?.id };
-
-                if (!roleFilters.dependencyId && !isAprendiz()) {
-                    throw new Error("Perfil sin dependencia asignada");
-                }
+                    : { professionalId: user.id };
 
                 const data = await AppointmentRepository.fetch({
                     ...roleFilters,
