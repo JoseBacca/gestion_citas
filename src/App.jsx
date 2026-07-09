@@ -12,14 +12,14 @@ function App() {
         justifyContent: "center",
         alignItems: "center",
         height: "100vh",
-        background: "var(--sena-gray)"
+        background: "var(--bg)"
       }}>
         <div style={{ textAlign: "center" }}>
           <div style={{
             width: 48,
             height: 48,
             borderRadius: "var(--radius-lg)",
-            background: "linear-gradient(135deg, var(--sena-green), var(--sena-green-dark))",
+            background: "linear-gradient(135deg, var(--primary), var(--primary-dark))",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",

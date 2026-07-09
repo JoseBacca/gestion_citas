@@ -83,7 +83,7 @@ export default function AdminDashboard() {
     return (
         <div className="admin-panel">
             <div className="page-header">
-                <div className="page-header-left"><h1><Shield size={24} color="var(--sena-green)" /> Panel de Administracion</h1><p>Gestion del sistema de bienestar</p></div>
+                <div className="page-header-left"><h1><Shield size={24} color="var(--primary)" /> Panel de Administracion</h1><p>Gestion del sistema de bienestar</p></div>
                 <div className="page-header-right"><button onClick={exportToCSV} className="btn-primary"><Download size={16} /> Exportar CSV</button></div>
             </div>
 
@@ -93,7 +93,7 @@ export default function AdminDashboard() {
                 ))}
             </div>
 
-            {activeTab === "overview" && (loading ? <div style={{ textAlign: "center", padding: "3rem" }}><Loader2 size={32} className="spin" color="var(--sena-green)" /></div> : (
+            {activeTab === "overview" && (loading ? <div style={{ textAlign: "center", padding: "3rem" }}><Loader2 size={32} className="spin" color="var(--primary)" /></div> : (
                 <>
                     <div className="kpi-grid">
                         {kpiList.map((kpi) => (
@@ -108,7 +108,7 @@ export default function AdminDashboard() {
                         {byDependency.length === 0 ? <p className="text-muted">Sin datos</p> : (
                             <div className="stats-bar-chart">
                                 {byDependency.map((dep) => { const maxVal = Math.max(...byDependency.map(d => d.total), 1); const pct = (dep.total / maxVal) * 100; return (
-                                    <div key={dep.name} className="stats-bar-row"><span className="stats-bar-label">{dep.name}</span><div className="stats-bar-track"><div className="stats-bar-fill" style={{ width: `${pct}%`, background: dep.color || "var(--sena-green)" }}><span className="stats-bar-value">{dep.total}</span></div></div></div>
+                                    <div key={dep.name} className="stats-bar-row"><span className="stats-bar-label">{dep.name}</span><div className="stats-bar-track"><div className="stats-bar-fill" style={{ width: `${pct}%`, background: dep.color || "var(--primary)" }}><span className="stats-bar-value">{dep.total}</span></div></div></div>
                                 );})}
                             </div>
                         )}
@@ -125,7 +125,7 @@ export default function AdminDashboard() {
             {activeTab === "users" && (
                 <div className="admin-table-container">
                     <h3>Usuarios ({users.length})</h3>
-                    {loadingUsers ? <div style={{ textAlign: "center", padding: "2rem" }}><Loader2 size={24} className="spin" color="var(--sena-green)" /></div> : (
+                    {loadingUsers ? <div style={{ textAlign: "center", padding: "2rem" }}><Loader2 size={24} className="spin" color="var(--primary)" /></div> : (
                         <div style={{ overflowX: "auto" }}>
                             <table className="admin-table">
                                 <thead><tr><th>Nombre</th><th>Email</th><th>Doc</th><th>Rol</th><th>Dependencia</th><th>Acciones</th></tr></thead>
@@ -157,7 +157,7 @@ export default function AdminDashboard() {
                     <div style={{ overflowX: "auto" }}>
                         <table className="admin-table">
                             <thead><tr><th>ID</th><th>Nombre</th><th>Color</th><th>Acciones</th></tr></thead>
-                            <tbody>{dependencies.map((dep) => <tr key={dep.id}><td>{dep.id}</td><td><div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}><span style={{ width: 12, height: 12, borderRadius: "50%", background: dep.color || "var(--sena-green)", display: "inline-block" }} /><span style={{ fontWeight: 500 }}>{dep.name}</span></div></td><td><code style={{ fontSize: "var(--text-xs)", color: "var(--gray-500)" }}>{dep.color}</code></td><td><button onClick={() => handleDeleteDependency(dep.id)} className="btn-icon-danger"><Trash2 size={14} /></button></td></tr>)}
+                            <tbody>{dependencies.map((dep) => <tr key={dep.id}><td>{dep.id}</td><td><div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)" }}><span style={{ width: 12, height: 12, borderRadius: "50%", background: dep.color || "var(--primary)", display: "inline-block" }} /><span style={{ fontWeight: 500 }}>{dep.name}</span></div></td><td><code style={{ fontSize: "var(--text-xs)", color: "var(--gray-500)" }}>{dep.color}</code></td><td><button onClick={() => handleDeleteDependency(dep.id)} className="btn-icon-danger"><Trash2 size={14} /></button></td></tr>)}
                             {dependencies.length === 0 && <tr><td colSpan={4} className="text-center" style={{ padding: "2rem" }}>Sin dependencias</td></tr>}</tbody>
                         </table>
                     </div>

@@ -47,7 +47,7 @@ export function ActivityLog({ limit = 10 }) {
         setLoading(false);
     };
 
-    if (loading) return <div style={{ textAlign: "center", padding: "var(--space-4)" }}><Loader2 size={20} className="spin" color="var(--sena-green)" /></div>;
+    if (loading) return <div style={{ textAlign: "center", padding: "var(--space-4)" }}><Loader2 size={20} className="spin" color="var(--primary)" /></div>;
 
     return (
         <div className="section-card">

@@ -5,7 +5,7 @@ import { User, Save, Loader2, Mail, CreditCard, Building2, Shield, Edit2, Lock, 
 import { toast } from "sonner";
 
 const ROLE_LABELS = { APRENDIZ: "Aprendiz", PSICOLOGIA: "Psicologia", ENFERMERIA: "Enfermeria", TRABAJO_SOCIAL: "Trabajo Social", COORDINACION: "Coordinacion", SUPERADMIN: "Administrador" };
-const ROLE_COLORS = { APRENDIZ: { bg: "var(--color-warning-light)", color: "#92400e" }, PSICOLOGIA: { bg: "#f3e8ff", color: "#6b21a8" }, ENFERMERIA: { bg: "var(--color-error-light)", color: "#991b1b" }, TRABAJO_SOCIAL: { bg: "#fef3c7", color: "#92400e" }, COORDINACION: { bg: "var(--color-info-light)", color: "#1e40af" }, SUPERADMIN: { bg: "var(--sena-green-light)", color: "var(--sena-green-dark)" } };
+const ROLE_COLORS = { APRENDIZ: { bg: "var(--color-warning-light)", color: "#92400e" }, PSICOLOGIA: { bg: "#f3e8ff", color: "#6b21a8" }, ENFERMERIA: { bg: "var(--color-error-light)", color: "#991b1b" }, TRABAJO_SOCIAL: { bg: "#fef3c7", color: "#92400e" }, COORDINACION: { bg: "var(--color-info-light)", color: "#1e40af" }, SUPERADMIN: { bg: "var(--primary-light)", color: "var(--primary-dark)" } };
 
 export default function ProfilePage() {
     const { profile, user: authUser } = useAuth();
@@ -23,7 +23,7 @@ export default function ProfilePage() {
     const [showNewPassword, setShowNewPassword] = useState(false);
     const [changingPassword, setChangingPassword] = useState(false);
 
-    if (!authUser || !profile) return <div style={{ textAlign: "center", padding: "3rem" }}><Loader2 size={32} className="spin" color="var(--sena-green)" /><p style={{ marginTop: "1rem", color: "var(--gray-500)" }}>Cargando perfil...</p></div>;
+    if (!authUser || !profile) return <div style={{ textAlign: "center", padding: "3rem" }}><Loader2 size={32} className="spin" color="var(--primary)" /><p style={{ marginTop: "1rem", color: "var(--gray-500)" }}>Cargando perfil...</p></div>;
 
     const handleSave = async () => {
         setSaving(true);
@@ -60,7 +60,7 @@ export default function ProfilePage() {
     const roleColor = ROLE_COLORS[profile.role_id] || { bg: "var(--gray-100)", color: "var(--gray-600)" };
     const initials = (profile.full_name || "U").split(" ").map(n => n[0]).join("").slice(0, 2).toUpperCase();
 
-    const inputStyle = { border: "1.5px solid var(--gray-200)", borderRadius: "var(--radius-md)", padding: "var(--space-3)", fontSize: "var(--text-sm)", width: "100%", fontFamily: "var(--font-sans)", color: "var(--gray-800)", background: "var(--sena-white)" };
+    const inputStyle = { border: "1.5px solid var(--gray-200)", borderRadius: "var(--radius-md)", padding: "var(--space-3)", fontSize: "var(--text-sm)", width: "100%", fontFamily: "var(--font-sans)", color: "var(--gray-800)", background: "var(--surface)" };
     const disabledInputStyle = { ...inputStyle, background: "var(--gray-50)", color: "var(--gray-500)" };
 
     return (

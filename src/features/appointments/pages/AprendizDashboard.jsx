@@ -105,7 +105,7 @@ export default function AprendizDashboard() {
     <div className="dashboard-container">
       <div className="page-header">
         <div className="page-header-left">
-          <h1><Sparkles size={24} color="var(--sena-green)" /> Bienestar Aprendiz</h1>
+          <h1><Sparkles size={24} color="var(--primary)" /> Bienestar Aprendiz</h1>
           <p>Selecciona el servicio que deseas agendar</p>
         </div>
         <div className="page-header-right">
@@ -154,7 +154,7 @@ export default function AprendizDashboard() {
               <Search size={16} className="search-bar-icon" />
               <input type="text" placeholder="Buscar por motivo, dependencia..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
             </div>
-            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} style={{ padding: "0.625rem 0.875rem", border: "1.5px solid var(--gray-200)", borderRadius: "var(--radius-md)", fontSize: "var(--text-sm)", color: "var(--gray-700)", background: "var(--sena-white)", cursor: "pointer" }}>
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} style={{ padding: "0.625rem 0.875rem", border: "1.5px solid var(--gray-200)", borderRadius: "var(--radius-md)", fontSize: "var(--text-sm)", color: "var(--gray-700)", background: "var(--surface)", cursor: "pointer" }}>
               <option value="all">Todos los estados</option>
               <option value="pending">Pendientes</option>
               <option value="confirmed">Confirmadas</option>
@@ -224,30 +224,30 @@ export default function AprendizDashboard() {
                 <span className={`status-badge status-${detailAppointment.status}`} style={{ fontSize: "var(--text-sm)" }}>{statusLabels[detailAppointment.status]}</span>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                <Calendar size={18} color="var(--sena-green)" />
+                <Calendar size={18} color="var(--primary)" />
                 <div><p style={{ fontSize: "var(--text-xs)", color: "var(--gray-400)", margin: 0 }}>Fecha</p><p style={{ fontSize: "var(--text-sm)", fontWeight: 600, margin: 0 }}>{detailAppointment.scheduled_date ? format(new Date(detailAppointment.scheduled_date), "EEEE d 'de' MMMM 'de' yyyy", { locale: es }) : "Sin fecha"}</p></div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                <Clock size={18} color="var(--sena-green)" />
+                <Clock size={18} color="var(--primary)" />
                 <div><p style={{ fontSize: "var(--text-xs)", color: "var(--gray-400)", margin: 0 }}>Hora</p><p style={{ fontSize: "var(--text-sm)", fontWeight: 600, margin: 0 }}>{detailAppointment.scheduled_time?.slice(0, 5) || "--:--"}</p></div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                <MapPin size={18} color="var(--sena-green)" />
+                <MapPin size={18} color="var(--primary)" />
                 <div><p style={{ fontSize: "var(--text-xs)", color: "var(--gray-400)", margin: 0 }}>Dependencia</p><p style={{ fontSize: "var(--text-sm)", fontWeight: 600, margin: 0 }}>{detailAppointment.dependencies?.name || "Sin asignar"}</p></div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                <FileText size={18} color="var(--sena-green)" />
+                <FileText size={18} color="var(--primary)" />
                 <div><p style={{ fontSize: "var(--text-xs)", color: "var(--gray-400)", margin: 0 }}>Motivo</p><p style={{ fontSize: "var(--text-sm)", fontWeight: 600, margin: 0 }}>{detailAppointment.reason || "Sin motivo"}</p></div>
               </div>
               {detailAppointment.aprendiz && (
                 <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                  <User size={18} color="var(--sena-green)" />
+                  <User size={18} color="var(--primary)" />
                   <div><p style={{ fontSize: "var(--text-xs)", color: "var(--gray-400)", margin: 0 }}>Aprendiz</p><p style={{ fontSize: "var(--text-sm)", fontWeight: 600, margin: 0 }}>{detailAppointment.aprendiz.full_name}</p></div>
                 </div>
               )}
               {detailAppointment.notes && (
                 <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                  <StickyNote size={18} color="var(--sena-green)" />
+                  <StickyNote size={18} color="var(--primary)" />
                   <div><p style={{ fontSize: "var(--text-xs)", color: "var(--gray-400)", margin: 0 }}>Notas</p><p style={{ fontSize: "var(--text-sm)", fontWeight: 600, margin: 0 }}>{detailAppointment.notes}</p></div>
                 </div>
               )}

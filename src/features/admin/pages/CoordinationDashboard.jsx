@@ -76,7 +76,7 @@ export default function CoordinationDashboard() {
     return (
         <div className="admin-panel">
             <div className="page-header">
-                <div className="page-header-left"><h1><Building2 size={24} color="var(--sena-green)" /> Panel de Coordinacion</h1><p>Vista general del sistema de citas</p></div>
+                <div className="page-header-left"><h1><Building2 size={24} color="var(--primary)" /> Panel de Coordinacion</h1><p>Vista general del sistema de citas</p></div>
                 <div className="page-header-right"><button onClick={exportToCSV} className="btn-primary"><Download size={16} /> Exportar CSV</button></div>
             </div>
 
@@ -139,7 +139,7 @@ export default function CoordinationDashboard() {
                 {byDependency.length === 0 ? <p className="text-muted">Sin datos</p> : (
                     <div className="stats-bar-chart">
                         {byDependency.map((dep) => { const maxVal = Math.max(...byDependency.map(d => d.total), 1); const pct = (dep.total / maxVal) * 100; return (
-                            <div key={dep.name} className="stats-bar-row"><span className="stats-bar-label">{dep.name}</span><div className="stats-bar-track"><div className="stats-bar-fill" style={{ width: `${pct}%`, background: dep.color || "var(--sena-green)" }}><span className="stats-bar-value">{dep.total}</span></div></div></div>
+                            <div key={dep.name} className="stats-bar-row"><span className="stats-bar-label">{dep.name}</span><div className="stats-bar-track"><div className="stats-bar-fill" style={{ width: `${pct}%`, background: dep.color || "var(--primary)" }}><span className="stats-bar-value">{dep.total}</span></div></div></div>
                         );})}
                     </div>
                 )}

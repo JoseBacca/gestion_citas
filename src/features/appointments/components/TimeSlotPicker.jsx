@@ -30,7 +30,7 @@ export function TimeSlotPicker({ dependencyId, date, value, onChange }) {
         <Clock size={14} color="var(--gray-500)" />
         <span style={{ fontSize: "var(--text-sm)", color: "var(--gray-500)" }}>{loading ? "Verificando..." : `${availableCount} horarios disponibles`}</span>
       </div>
-      {loading && <div style={{ textAlign: "center", padding: "var(--space-4)" }}><Loader2 size={20} className="spin" color="var(--sena-green)" /></div>}
+      {loading && <div style={{ textAlign: "center", padding: "var(--space-4)" }}><Loader2 size={20} className="spin" color="var(--primary)" /></div>}
       <div className="time-slot-grid">
         {TIME_SLOTS.map((time) => {
           const isUnavailable = unavailableSlots.includes(time);

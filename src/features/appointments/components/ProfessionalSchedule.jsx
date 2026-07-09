@@ -56,7 +56,7 @@ export default function ProfessionalSchedule() {
         }
     };
 
-    if (loading) return <div style={{ textAlign: "center", padding: "2rem" }}><Loader2 size={24} className="spin" color="var(--sena-green)" /></div>;
+    if (loading) return <div style={{ textAlign: "center", padding: "2rem" }}><Loader2 size={24} className="spin" color="var(--primary)" /></div>;
 
     return (
         <div className="section-card">
@@ -73,21 +73,21 @@ export default function ProfessionalSchedule() {
                 {DAY_LABELS.map((day, idx) => {
                     const daySchedule = schedule.find((s) => s.day_of_week === idx) || { day_of_week: idx, start_time: "08:00", end_time: "12:00", active: false };
                     return (
-                        <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-3)", background: daySchedule.active ? "var(--sena-green-light)" : "var(--gray-50)", borderRadius: "var(--radius-md)", transition: "all var(--transition-fast)", border: `1px solid ${daySchedule.active ? "var(--sena-green)" : "var(--gray-200)"}` }}>
+                        <div key={idx} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-3)", background: daySchedule.active ? "var(--primary-light)" : "var(--gray-50)", borderRadius: "var(--radius-md)", transition: "all var(--transition-fast)", border: `1px solid ${daySchedule.active ? "var(--primary)" : "var(--gray-200)"}` }}>
                             <label style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", minWidth: 120, cursor: "pointer" }}>
-                                <input type="checkbox" checked={daySchedule.active} onChange={(e) => updateSchedule(idx, "active", e.target.checked)} style={{ width: 18, height: 18, accentColor: "var(--sena-green)" }} />
-                                <span style={{ fontWeight: 600, fontSize: "var(--text-sm)", color: daySchedule.active ? "var(--sena-green-dark)" : "var(--gray-500)" }}>{DAY_SHORT[idx]}</span>
+                                <input type="checkbox" checked={daySchedule.active} onChange={(e) => updateSchedule(idx, "active", e.target.checked)} style={{ width: 18, height: 18, accentColor: "var(--primary)" }} />
+                                <span style={{ fontWeight: 600, fontSize: "var(--text-sm)", color: daySchedule.active ? "var(--primary-dark)" : "var(--gray-500)" }}>{DAY_SHORT[idx]}</span>
                             </label>
                             {daySchedule.active ? (
                                 <div style={{ display: "flex", alignItems: "center", gap: "var(--space-2)", flex: 1 }}>
-                                    <select value={daySchedule.start_time} onChange={(e) => updateSchedule(idx, "start_time", e.target.value)} style={{ padding: "0.4rem 0.6rem", border: "1px solid var(--gray-200)", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontFamily: "var(--font-mono)", fontWeight: 500, background: "var(--sena-white)" }}>
+                                    <select value={daySchedule.start_time} onChange={(e) => updateSchedule(idx, "start_time", e.target.value)} style={{ padding: "0.4rem 0.6rem", border: "1px solid var(--gray-200)", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontFamily: "var(--font-mono)", fontWeight: 500, background: "var(--surface)" }}>
                                         {TIME_OPTIONS.map((t) => <option key={t} value={t}>{t}</option>)}
                                     </select>
                                     <span style={{ color: "var(--gray-400)", fontWeight: 600 }}>a</span>
-                                    <select value={daySchedule.end_time} onChange={(e) => updateSchedule(idx, "end_time", e.target.value)} style={{ padding: "0.4rem 0.6rem", border: "1px solid var(--gray-200)", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontFamily: "var(--font-mono)", fontWeight: 500, background: "var(--sena-white)" }}>
+                                    <select value={daySchedule.end_time} onChange={(e) => updateSchedule(idx, "end_time", e.target.value)} style={{ padding: "0.4rem 0.6rem", border: "1px solid var(--gray-200)", borderRadius: "var(--radius-sm)", fontSize: "var(--text-sm)", fontFamily: "var(--font-mono)", fontWeight: 500, background: "var(--surface)" }}>
                                         {TIME_OPTIONS.map((t) => <option key={t} value={t}>{t}</option>)}
                                     </select>
-                                    <CheckCircle size={14} color="var(--sena-green)" style={{ marginLeft: "auto" }} />
+                                    <CheckCircle size={14} color="var(--primary)" style={{ marginLeft: "auto" }} />
                                 </div>
                             ) : (
                                 <span style={{ fontSize: "var(--text-sm)", color: "var(--gray-400)", fontStyle: "italic" }}>No disponible</span>

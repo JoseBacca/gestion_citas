@@ -86,7 +86,7 @@ export default function ProfessionalDashboard() {
         <div className="dashboard-container">
             <div className="page-header">
                 <div className="page-header-left">
-                    <h1><ClipboardCheck size={24} color="var(--sena-green)" /> {depName}</h1>
+                    <h1><ClipboardCheck size={24} color="var(--primary)" /> {depName}</h1>
                     <p>{format(new Date(), "EEEE d 'de' MMMM", { locale: es })}</p>
                 </div>
                 <div className="page-header-right">
@@ -95,13 +95,13 @@ export default function ProfessionalDashboard() {
             </div>
 
             {todayAppointments.length > 0 && (
-                <div className="section-card" style={{ borderLeft: "4px solid var(--sena-green)", marginBottom: "var(--space-6)" }}>
-                    <h3><Calendar size={18} color="var(--sena-green)" /> Citas de Hoy ({todayAppointments.length})</h3>
+                <div className="section-card" style={{ borderLeft: "4px solid var(--primary)", marginBottom: "var(--space-6)" }}>
+                    <h3><Calendar size={18} color="var(--primary)" /> Citas de Hoy ({todayAppointments.length})</h3>
                     <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
                         {todayAppointments.map((apt) => (
                             <div key={apt.id} style={{ flex: "1 1 280px", padding: "var(--space-3)", background: "var(--gray-50)", borderRadius: "var(--radius-md)", display: "flex", alignItems: "center", gap: "var(--space-3)" }}>
-                                <div style={{ width: 48, height: 48, borderRadius: "var(--radius-full)", background: "var(--sena-green-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                                    <Clock size={20} color="var(--sena-green)" />
+                                <div style={{ width: 48, height: 48, borderRadius: "var(--radius-full)", background: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                                    <Clock size={20} color="var(--primary)" />
                                 </div>
                                 <div style={{ flex: 1, minWidth: 0 }}>
                                     <p style={{ fontWeight: 600, fontSize: "var(--text-sm)", margin: 0 }}>{apt.scheduled_time?.slice(0, 5)}</p>

@@ -80,7 +80,7 @@ export function AppointmentForm({ onSuccess, defaultDependencyId }) {
                 {step === 1 && (
                     <div className="animate-fade-in">
                         <div className="field"><label><MapPin size={16} /> Dependencia seleccionada</label>
-                        <p style={{ fontWeight: 600, color: "var(--sena-green)", margin: 0, fontSize: "var(--text-lg)", padding: "var(--space-3) 0" }}>{depName}</p></div>
+                        <p style={{ fontWeight: 600, color: "var(--primary)", margin: 0, fontSize: "var(--text-lg)", padding: "var(--space-3) 0" }}>{depName}</p></div>
                         {errors.dependency_id && <span className="error">{errors.dependency_id.message}</span>}
                     </div>
                 )}
@@ -103,8 +103,8 @@ export function AppointmentForm({ onSuccess, defaultDependencyId }) {
                 )}
                 {step === 4 && (
                     <div className="animate-fade-in" style={{ textAlign: "center" }}>
-                        <div style={{ width: 64, height: 64, borderRadius: "var(--radius-full)", background: "var(--sena-green-light)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto var(--space-5)" }}>
-                            <Check size={32} color="var(--sena-green)" />
+                        <div style={{ width: 64, height: 64, borderRadius: "var(--radius-full)", background: "var(--primary-light)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto var(--space-5)" }}>
+                            <Check size={32} color="var(--primary)" />
                         </div>
                         <h3 style={{ marginBottom: "var(--space-4)", color: "var(--gray-800)" }}>Confirma tu cita</h3>
                         <div style={{ background: "var(--gray-50)", borderRadius: "var(--radius-md)", padding: "var(--space-5)", textAlign: "left" }}>

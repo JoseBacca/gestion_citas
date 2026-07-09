@@ -32,12 +32,12 @@ export function NotificationBell() {
             </button>
 
             {open && (
-                <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, width: 380, maxHeight: 480, background: "var(--sena-white)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-xl)", border: "1px solid var(--gray-200)", zIndex: 200, overflow: "hidden", animation: "scaleIn 0.15s ease-out" }}>
+                <div style={{ position: "absolute", top: "100%", right: 0, marginTop: 8, width: 380, maxHeight: 480, background: "var(--surface)", borderRadius: "var(--radius-lg)", boxShadow: "var(--shadow-xl)", border: "1px solid var(--gray-200)", zIndex: 200, overflow: "hidden", animation: "scaleIn 0.15s ease-out" }}>
                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "var(--space-4)", borderBottom: "1px solid var(--gray-100)" }}>
                         <h3 style={{ fontSize: "var(--text-sm)", fontWeight: 700, margin: 0 }}>Notificaciones</h3>
                         <div style={{ display: "flex", gap: "var(--space-2)" }}>
                             {unreadCount > 0 && (
-                                <button onClick={markAllAsRead} style={{ border: "none", background: "none", color: "var(--sena-green)", fontSize: "var(--text-xs)", fontWeight: 600, cursor: "pointer", padding: "4px 8px", borderRadius: "var(--radius-sm)" }}>
+                                <button onClick={markAllAsRead} style={{ border: "none", background: "none", color: "var(--primary)", fontSize: "var(--text-xs)", fontWeight: 600, cursor: "pointer", padding: "4px 8px", borderRadius: "var(--radius-sm)" }}>
                                     <CheckCheck size={12} /> Marcar todo
                                 </button>
                             )}
@@ -62,9 +62,9 @@ export function NotificationBell() {
                                 const Icon = typeIcons[notif.type] || Info;
                                 const color = typeColors[notif.type] || "#6b7280";
                                 return (
-                                    <div key={notif.id} onClick={() => !notif.read && markAsRead(notif.id)} style={{ display: "flex", gap: "var(--space-3)", padding: "var(--space-3) var(--space-4)", borderBottom: "1px solid var(--gray-50)", cursor: "pointer", background: notif.read ? "transparent" : "var(--sena-green-light)", transition: "background var(--transition-fast)" }}
-                                        onMouseEnter={(e) => e.currentTarget.style.background = notif.read ? "var(--gray-50)" : "var(--sena-green-light)"}
-                                        onMouseLeave={(e) => e.currentTarget.style.background = notif.read ? "transparent" : "var(--sena-green-light)"}>
+                                    <div key={notif.id} onClick={() => !notif.read && markAsRead(notif.id)} style={{ display: "flex", gap: "var(--space-3)", padding: "var(--space-3) var(--space-4)", borderBottom: "1px solid var(--gray-50)", cursor: "pointer", background: notif.read ? "transparent" : "var(--primary-light)", transition: "background var(--transition-fast)" }}
+                                        onMouseEnter={(e) => e.currentTarget.style.background = notif.read ? "var(--gray-50)" : "var(--primary-light)"}
+                                        onMouseLeave={(e) => e.currentTarget.style.background = notif.read ? "transparent" : "var(--primary-light)"}>
                                         <div style={{ width: 32, height: 32, borderRadius: "var(--radius-full)", background: `${color}15`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
                                             <Icon size={16} color={color} />
                                         </div>
@@ -73,7 +73,7 @@ export function NotificationBell() {
                                             <p style={{ fontSize: "var(--text-xs)", color: "var(--gray-500)", margin: "2px 0 0", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{notif.message}</p>
                                             <p style={{ fontSize: "10px", color: "var(--gray-400)", margin: "4px 0 0" }}>{notif.created_at ? format(new Date(notif.created_at), "dd MMM yyyy HH:mm", { locale: es }) : ""}</p>
                                         </div>
-                                        {!notif.read && <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--sena-green)", flexShrink: 0, marginTop: 6 }} />}
+                                        {!notif.read && <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--primary)", flexShrink: 0, marginTop: 6 }} />}
                                     </div>
                                 );
                             })
