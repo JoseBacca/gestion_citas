@@ -2,7 +2,7 @@
 import { supabase } from "../../../lib/supabase";
 import { useDashboard } from "../../dashboard/api/hooks/useDashboard";
 import { ActivityLog } from "../../../shared/components/ActivityLog";
-import { CalendarCheck, Building2, Activity, Download, Loader2, Clock, BarChart3, Search, XCircle } from "lucide-react";
+import { CalendarCheck, Building2, Activity, Download, Loader2, Clock, BarChart3, Search, XCircle, Hash } from "lucide-react";
 import { toast } from "sonner";
 
 function SkeletonTable() {
@@ -28,6 +28,8 @@ export default function CoordinationDashboard() {
     const [filter, setFilter] = useState("all");
     const [searchTerm, setSearchTerm] = useState("");
     const [cancelConfirmId, setCancelConfirmId] = useState(null);
+    const [fichasActivas, setFichasActivas] = useState([]);
+    const [loadingFichas, setLoadingFichas] = useState(false);
 
     useEffect(() => { fetchAllMetrics(); }, [fetchAllMetrics]);
 
@@ -47,6 +49,28 @@ export default function CoordinationDashboard() {
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => { loadAppointments(); }, [loadAppointments]);
+
+    useEffect(() => {
+        const loadFichas = async () => {
+            setLoadingFichas(true);
+            const { data: appts } = await supabase.from("appointments").select("user_id, status").not("status", "eq", "cancelled");
+            if (appts && appts.length > 0) {
+                const userIds = [...new Set(appts.map((a) => a.user_id).filter(Boolean))];
+                const { data: profiles } = await supabase.from("profiles").select("id, ficha, full_name").in("id", userIds);
+                const fichaMap = {};
+                (profiles || []).forEach((p) => {
+                    if (p.ficha) {
+                        if (!fichaMap[p.ficha]) fichaMap[p.ficha] = { ficha: p.ficha, count: 0, aprendices: [] };
+                        fichaMap[p.ficha].count++;
+                        if (!fichaMap[p.ficha].aprendices.includes(p.full_name)) fichaMap[p.ficha].aprendices.push(p.full_name);
+                    }
+                });
+                setFichasActivas(Object.values(fichaMap).sort((a, b) => b.count - a.count));
+            }
+            setLoadingFichas(false);
+        };
+        loadFichas();
+    }, []);
 
     const filteredAppointments = useMemo(() => {
         if (!searchTerm) return appointments;
@@ -87,6 +111,23 @@ export default function CoordinationDashboard() {
             ) : (
                 <div className="kpi-grid">{kpiList.map((kpi) => <div key={kpi.label} className="kpi-card" style={{ "--kpi-color": kpi.color }}><div className="kpi-card-header"><h3>{kpi.label}</h3><div className="kpi-card-icon" style={{ background: kpi.bg, color: kpi.color }}><kpi.icon size={20} /></div></div><p className="kpi-value">{kpi.value}</p></div>)}</div>
             )}
+
+            <div className="section-card">
+                <h3><Hash size={18} /> Fichas Activas</h3>
+                {loadingFichas ? <div style={{ textAlign: "center", padding: "1rem" }}><Loader2 size={20} className="spin" color="var(--primary)" /></div> : fichasActivas.length === 0 ? (
+                    <p className="text-muted">No hay fichas con citas activas</p>
+                ) : (
+                    <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
+                        {fichasActivas.map((f) => (
+                            <div key={f.ficha} style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", padding: "var(--space-3) var(--space-4)", background: "var(--primary-lighter)", borderRadius: "var(--radius-md)", border: "1px solid var(--primary-light)" }}>
+                                <span style={{ fontWeight: 700, color: "var(--primary)", fontFamily: "var(--font-mono)", fontSize: "var(--text-sm)" }}>Ficha {f.ficha}</span>
+                                <span className="status-badge status-confirmed" style={{ fontSize: "10px" }}>{f.count} cita{f.count !== 1 ? "s" : ""}</span>
+                                <span style={{ fontSize: "var(--text-xs)", color: "var(--gray-500)" }}>{f.aprendices.length} aprendiz{f.aprendices.length !== 1 ? "es" : ""}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
 
             <div className="section-card">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "var(--space-5)", flexWrap: "wrap", gap: "var(--space-3)" }}>

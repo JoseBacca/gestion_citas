@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState, useCallback } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useDashboard } from "../../dashboard/api/hooks/useDashboard";
-import { CalendarCheck, Activity, Users, Download, Save, X, Plus, Trash2, Edit, Building2, Shield, BarChart3, Clock, Loader2 } from "lucide-react";
+import { CalendarCheck, Activity, Users, Download, Save, X, Plus, Trash2, Edit, Building2, Shield, BarChart3, Clock, Loader2, Hash } from "lucide-react";
 import { toast } from "sonner";
 
 const ROLE_OPTIONS = [
@@ -22,6 +22,8 @@ export default function AdminDashboard() {
     const [editDependency, setEditDependency] = useState("");
     const [newDepName, setNewDepName] = useState("");
     const [newDepColor, setNewDepColor] = useState("#39a900");
+    const [fichasActivas, setFichasActivas] = useState([]);
+    const [loadingFichas, setLoadingFichas] = useState(false);
 
     useEffect(() => { fetchAllMetrics(); }, [fetchAllMetrics]);
 
@@ -39,6 +41,24 @@ export default function AdminDashboard() {
             setUsers(usersWithDeps); setRoles(rolesData || []); setDependencies(depsData || []); setLoadingUsers(false);
         } else if (activeTab === "dependencies") { const { data } = await supabase.from("dependencies").select("*").order("name"); setDependencies(data || []); }
         else if (activeTab === "roles") { const { data } = await supabase.from("roles").select("*").order("id"); setRoles(data || []); }
+        else if (activeTab === "fichas") {
+            setLoadingFichas(true);
+            const { data: appts } = await supabase.from("appointments").select("user_id, status").not("status", "eq", "cancelled");
+            if (appts && appts.length > 0) {
+                const userIds = [...new Set(appts.map((a) => a.user_id).filter(Boolean))];
+                const { data: profiles } = await supabase.from("profiles").select("id, ficha, full_name").in("id", userIds);
+                const fichaMap = {};
+                (profiles || []).forEach((p) => {
+                    if (p.ficha) {
+                        if (!fichaMap[p.ficha]) fichaMap[p.ficha] = { ficha: p.ficha, count: 0, aprendices: [] };
+                        fichaMap[p.ficha].count++;
+                        if (!fichaMap[p.ficha].aprendices.includes(p.full_name)) fichaMap[p.ficha].aprendices.push(p.full_name);
+                    }
+                });
+                setFichasActivas(Object.values(fichaMap).sort((a, b) => b.count - a.count));
+            } else { setFichasActivas([]); }
+            setLoadingFichas(false);
+        }
     }, [activeTab]);
 
     // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -88,7 +108,7 @@ export default function AdminDashboard() {
             </div>
 
             <div className="filter-tabs" style={{ marginBottom: "var(--space-6)" }}>
-                {[{ key: "overview", label: "Resumen" }, { key: "users", label: "Usuarios" }, { key: "dependencies", label: "Dependencias" }, { key: "roles", label: "Roles" }].map((tab) => (
+                {[{ key: "overview", label: "Resumen" }, { key: "users", label: "Usuarios" }, { key: "fichas", label: "Fichas" }, { key: "dependencies", label: "Dependencias" }, { key: "roles", label: "Roles" }].map((tab) => (
                     <button key={tab.key} className={activeTab === tab.key ? "active" : ""} onClick={() => setActiveTab(tab.key)}>{tab.label}</button>
                 ))}
             </div>
@@ -139,6 +159,34 @@ export default function AdminDashboard() {
                                         </tr>
                                     ))}
                                     {users.length === 0 && <tr><td colSpan={6} className="text-center" style={{ padding: "2rem" }}>Sin usuarios</td></tr>}
+                                </tbody>
+                            </table>
+                        </div>
+                    )}
+                </div>
+            )}
+
+            {activeTab === "fichas" && (
+                <div className="admin-table-container">
+                    <h3><Hash size={18} /> Fichas Activas ({fichasActivas.length})</h3>
+                    <p style={{ fontSize: "var(--text-sm)", color: "var(--gray-500)", marginBottom: "var(--space-5)" }}>Fichas con citas activas (pendientes, confirmadas o completadas)</p>
+                    {loadingFichas ? <div style={{ textAlign: "center", padding: "2rem" }}><Loader2 size={24} className="spin" color="var(--primary)" /></div> : fichasActivas.length === 0 ? (
+                        <div style={{ textAlign: "center", padding: "var(--space-8)", color: "var(--gray-400)" }}>
+                            <Hash size={32} style={{ marginBottom: "var(--space-3)" }} />
+                            <p>No hay fichas activas aun</p>
+                        </div>
+                    ) : (
+                        <div style={{ overflowX: "auto" }}>
+                            <table className="admin-table">
+                                <thead><tr><th>Ficha</th><th>Citas Activas</th><th>Aprendices</th></tr></thead>
+                                <tbody>
+                                    {fichasActivas.map((f) => (
+                                        <tr key={f.ficha}>
+                                            <td><span style={{ fontWeight: 700, color: "var(--primary)", fontFamily: "var(--font-mono)" }}>{f.ficha}</span></td>
+                                            <td><span className="status-badge status-confirmed">{f.count} cita{f.count !== 1 ? "s" : ""}</span></td>
+                                            <td style={{ fontSize: "var(--text-xs)", color: "var(--gray-500)" }}>{f.aprendices.join(", ")}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
