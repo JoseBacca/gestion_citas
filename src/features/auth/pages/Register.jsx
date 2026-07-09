@@ -54,6 +54,7 @@ export default function Register() {
                         </div>
                         {errorMessage && <div className="auth-error">{errorMessage}</div>}
                         <form className="auth-form" onSubmit={handleSubmit}>
+                            <div className="field"><label><Shield size={14} /> Rol</label><select name="role_id" value={formData.role_id} onChange={handleChange} required><option value="APRENDIZ">Aprendiz</option><option value="COORDINACION">Coordinacion</option><option value="PSICOLOGIA">Psicologia</option><option value="ENFERMERIA">Enfermeria</option><option value="TRABAJO_SOCIAL">Trabajo Social</option></select></div>
                             <div className="field"><label><User size={14} /> Nombre completo</label><input type="text" name="full_name" value={formData.full_name} onChange={handleChange} placeholder="Tu nombre completo" required /></div>
                             <div className="field"><label><CreditCard size={14} /> Numero de documento</label><input type="text" name="document_number" value={formData.document_number} onChange={handleChange} placeholder="Ej: 1098765432" required /></div>
                             {formData.role_id === "APRENDIZ" && (
@@ -64,7 +65,6 @@ export default function Register() {
                                 <div className="field"><label><Lock size={14} /> Contrasena</label><input type="password" name="password" value={formData.password} onChange={handleChange} placeholder="Min. 6 caracteres" required /></div>
                                 <div className="field"><label><Lock size={14} /> Confirmar</label><input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} placeholder="Repite tu contrasena" required /></div>
                             </div>
-                            <div className="field"><label>Rol</label><select name="role_id" value={formData.role_id} onChange={handleChange} required><option value="APRENDIZ">Aprendiz</option><option value="COORDINACION">Coordinacion</option><option value="PSICOLOGIA">Psicologia</option><option value="ENFERMERIA">Enfermeria</option><option value="TRABAJO_SOCIAL">Trabajo Social</option></select></div>
                             <button type="submit" disabled={loading} className="btn-primary btn-lg">{loading ? <><Loader2 size={18} className="spin" /> Creando cuenta...</> : "Crear Cuenta"}</button>
                         </form>
                         <div className="auth-divider"><span>o</span></div>
