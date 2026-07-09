@@ -145,6 +145,7 @@ export function Authprovider({ children }) {
                         full_name: userData.full_name,
                         document_number: userData.document_number,
                         role_id: userData.role_id || "APRENDIZ",
+                        ficha: userData.ficha || null,
                     }
                 }
             });
