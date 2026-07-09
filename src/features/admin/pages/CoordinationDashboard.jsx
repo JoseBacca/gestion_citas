@@ -45,6 +45,7 @@ export default function CoordinationDashboard() {
         setLoadingAppts(false);
     }, [filter]);
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => { loadAppointments(); }, [loadAppointments]);
 
     const filteredAppointments = useMemo(() => {

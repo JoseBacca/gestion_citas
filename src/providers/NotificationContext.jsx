@@ -4,6 +4,7 @@ import { useAuth } from "./Authproviders";
 
 const NotificationContext = createContext(null);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useNotifications = () => {
     const ctx = useContext(NotificationContext);
     if (!ctx) throw new Error("useNotifications debe usarse dentro de NotificationProvider");

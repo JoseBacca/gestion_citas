@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { supabase } from "../../lib/supabase";
 import { useAppointments } from "./hooks/UseAppointments";
 import { CalendarDays, Clock, Loader2, ArrowRight, Check, X } from "lucide-react";
@@ -6,7 +6,7 @@ import { TimeSlotPicker } from "./TimeSlotPicker";
 import { toast } from "sonner";
 
 export function RescheduleModal({ appointment, onClose, onSuccess }) {
-    const { updateStatus } = useAppointments();
+    useAppointments();
     const [newDate, setNewDate] = useState("");
     const [newTime, setNewTime] = useState("");
     const [saving, setSaving] = useState(false);

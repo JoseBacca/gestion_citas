@@ -80,7 +80,6 @@ export default function ProfessionalDashboard() {
         toast.success("CSV exportado correctamente");
     };
 
-    const total = filteredAppointments.length;
     const depName = profile?.dependency?.name || "Citas";
 
     return (

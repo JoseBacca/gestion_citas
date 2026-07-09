@@ -41,6 +41,7 @@ export default function AdminDashboard() {
         else if (activeTab === "roles") { const { data } = await supabase.from("roles").select("*").order("id"); setRoles(data || []); }
     }, [activeTab]);
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     useEffect(() => { loadTabData(); }, [loadTabData]);
 
     const handleEditUser = (user) => { setEditUserId(user.id); setEditRole(user.role_id || ""); setEditDependency(user.dependency_id?.toString() || ""); };

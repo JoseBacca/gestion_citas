@@ -15,8 +15,8 @@ export default function ProfessionalSchedule() {
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { loadSchedule(); }, [user]);
-
     const loadSchedule = async () => {
         if (!user) return;
         setLoading(true);

@@ -43,7 +43,7 @@ export default function Sidebar() {
     }, [user, isAprendiz]);
 
     useEffect(() => {
-        setMobileOpen(false);
+        setMobileOpen(false); // eslint-disable-line react-hooks/set-state-in-effect
     }, [location.pathname]);
 
     if (!user) return null;

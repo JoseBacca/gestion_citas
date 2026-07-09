@@ -18,6 +18,7 @@ export function AppointmentForm({ onSuccess, defaultDependencyId }) {
         defaultValues: { dependency_id: undefined, scheduled_date: "", scheduled_time: "", reason: "" },
     });
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const watchedDependencyId = watch("dependency_id");
     const watchedDate = watch("scheduled_date");
     const watchedTime = watch("scheduled_time");

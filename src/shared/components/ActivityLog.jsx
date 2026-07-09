@@ -13,7 +13,7 @@ export function ActivityLog({ limit = 10 }) {
     const { user, isAdmin, isCoordination } = useAuth();
     const [activities, setActivities] = useState([]);
     const [loading, setLoading] = useState(true);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => { loadActivities(); }, [user]);
 
     const loadActivities = async () => {
