@@ -20,6 +20,8 @@ const CoordinationDashboard = lazy(() => import("../features/admin/pages/Coordin
 
 // Private - Any role
 const ProfilePage = lazy(() => import("../shared/components/ProfilePage"));
+const UserManual = lazy(() => import("../shared/components/UserManual"));
+const TechnicalManual = lazy(() => import("../shared/components/TechnicalManual"));
 
 const Loading = () => (
     <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
@@ -94,6 +96,10 @@ export const AppRoutes = function () {
                         </ProtectedRoute>
                     }
                 />
+
+                {/* Manuals */}
+                <Route path="/manual-usuario" element={<ProtectedRoute><UserManual /></ProtectedRoute>} />
+                <Route path="/manual-tecnico" element={<ProtectedRoute><TechnicalManual /></ProtectedRoute>} />
 
                 {/* Initial redirect */}
                 <Route path="/" element={<Navigate to={getHomeRoute()} replace />} />

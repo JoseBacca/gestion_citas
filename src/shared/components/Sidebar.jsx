@@ -118,24 +118,14 @@ export default function Sidebar() {
                     </Link>
 
                     <div className="sidebar-section-label">Manuales</div>
-                    <a
-                        href="/manual-usuario.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="sidebar-link"
-                    >
+                    <Link to="/manual-usuario" className="sidebar-link">
                         <span className="sidebar-link-icon"><BookOpen size={18} /></span>
                         <span className="sidebar-link-label">Manual de Usuario</span>
-                    </a>
-                    <a
-                        href="/manual-tecnico.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="sidebar-link"
-                    >
+                    </Link>
+                    <Link to="/manual-tecnico" className="sidebar-link">
                         <span className="sidebar-link-icon"><FileText size={18} /></span>
                         <span className="sidebar-link-label">Manual Tecnico</span>
-                    </a>
+                    </Link>
                 </nav>
 
                 <div className="sidebar-footer">
