@@ -1,0 +1,60 @@
+# ============================================================
+# PRUEBAS DE CARGA Y ESTRES - SENA BIENESTAR
+# Herramienta: Artillery (npx artillery run load-test.yml)
+# ============================================================
+
+config:
+  target: "https://lyinvtozaemvoudrkwnf.supabase.co"
+  phases:
+    - name: "Calentamiento"
+      duration: 10
+      arrivalRate: 5
+    - name: "Carga moderada"
+      duration: 30
+      arrivalRate: 10
+    - name: "Alta carga"
+      duration: 30
+      arrivalRate: 25
+    - name: "Pico de estres"
+      duration: 15
+      arrivalRate: 50
+  ensure:
+    p99: 5000
+    maxErrorRate: 10
+
+scenarios:
+  - name: "Consultar dependencias (lectura publica)"
+    weight: 40
+    flow:
+      - get:
+          url: "/rest/v1/dependencies?select=*"
+          expect:
+            - statusCode: 200
+
+  - name: "Consultar citas (requiere auth)"
+    weight: 30
+    flow:
+      - get:
+          url: "/rest/v1/appointments?select=*,dependencies(name)&limit=10"
+          expect:
+            - statusCode: [200, 401]
+
+  - name: "Consultar perfiles (requiere auth)"
+    weight: 20
+    flow:
+      - get:
+          url: "/rest/v1/profiles?select=id,full_name,role_id&limit=10"
+          expect:
+            - statusCode: [200, 401]
+
+  - name: "Flujo mixto"
+    weight: 10
+    flow:
+      - get:
+          url: "/rest/v1/dependencies?select=*"
+      - think: 1
+      - get:
+          url: "/rest/v1/appointments?select=*,dependencies(name)&limit=5"
+      - think: 1
+      - get:
+          url: "/rest/v1/profiles?select=id,full_name&limit=5"
