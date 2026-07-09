@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { supabase } from "../../lib/supabase";
-import { useAuth } from "../../providers/Authproviders";
+import { supabase } from "../../../lib/supabase";
+import { useAuth } from "../../../providers/Authproviders";
 import { Clock, Save, Loader2, Plus, Trash2, Calendar, CheckCircle } from "lucide-react";
 import { toast } from "sonner";
 

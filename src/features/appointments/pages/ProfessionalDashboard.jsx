@@ -1,7 +1,7 @@
 ﻿import { useEffect, useState, useMemo } from "react";
 import { useAppointments } from "../components/hooks/UseAppointments";
 import { AppointmentCard } from "../components/AppointmentCard";
-import { ProfessionalSchedule } from "../components/ProfessionalSchedule";
+import ProfessionalSchedule from "../components/ProfessionalSchedule";
 import { useAuth } from "../../../providers/Authproviders";
 import { CheckCircle, XCircle, ClipboardCheck, Loader2, Users, Clock, CalendarCheck, Search, Download, StickyNote, Calendar, Settings } from "lucide-react";
 import { toast } from "sonner";

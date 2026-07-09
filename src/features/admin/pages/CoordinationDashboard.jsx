@@ -40,7 +40,7 @@ export default function CoordinationDashboard() {
             const userIds = [...new Set(data.flatMap((a) => [a.user_id, a.professional_id].filter(Boolean)))];
             const { data: profiles } = await supabase.from("profiles").select("id, full_name").in("id", userIds);
             const profilesMap = Object.fromEntries((profiles || []).map((p) => [p.id, p.full_name]));
-            setAppointments(data.map((a) => ({ ...a, aprendiz_name: profilesMap[a.user_id] || "-", professional_name: profilesMap[a.professional_id] || "Sin asignar" }));
+            setAppointments(data.map((a) => ({ ...a, aprendiz_name: profilesMap[a.user_id] || "-", professional_name: profilesMap[a.professional_id] || "Sin asignar" })));
         } else { setAppointments(data || []); }
         setLoadingAppts(false);
     }, [filter]);
