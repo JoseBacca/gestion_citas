@@ -40,9 +40,9 @@ export default function CoordinationDashboard() {
         const { data } = await query;
         if (data && data.length > 0) {
             const userIds = [...new Set(data.flatMap((a) => [a.user_id, a.professional_id].filter(Boolean)))];
-            const { data: profiles } = await supabase.from("profiles").select("id, full_name").in("id", userIds);
-            const profilesMap = Object.fromEntries((profiles || []).map((p) => [p.id, p.full_name]));
-            setAppointments(data.map((a) => ({ ...a, aprendiz_name: profilesMap[a.user_id] || "-", professional_name: profilesMap[a.professional_id] || "Sin asignar" })));
+            const { data: profiles } = await supabase.from("profiles").select("id, full_name, ficha").in("id", userIds);
+            const profilesMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
+            setAppointments(data.map((a) => ({ ...a, aprendiz_name: profilesMap[a.user_id]?.full_name || "-", aprendiz_ficha: profilesMap[a.user_id]?.ficha || null, professional_name: profilesMap[a.professional_id]?.full_name || "Sin asignar" })));
         } else { setAppointments(data || []); }
         setLoadingAppts(false);
     }, [filter]);
@@ -147,10 +147,10 @@ export default function CoordinationDashboard() {
                 {loadingAppts ? <SkeletonTable /> : (
                     <div style={{ overflowX: "auto" }}>
                         <table className="admin-table">
-                            <thead><tr><th>Fecha</th><th>Hora</th><th>Aprendiz</th><th>Profesional</th><th>Dependencia</th><th>Estado</th><th>Accion</th></tr></thead>
+                            <thead><tr><th>Fecha</th><th>Hora</th><th>Aprendiz</th><th>Ficha</th><th>Profesional</th><th>Dependencia</th><th>Estado</th><th>Accion</th></tr></thead>
                             <tbody>
                                 {filteredAppointments.map((apt) => (
-                                    <tr key={apt.id}><td>{apt.scheduled_date}</td><td style={{ fontFamily: "var(--font-mono)", fontWeight: 500 }}>{apt.scheduled_time?.slice(0, 5)}</td><td style={{ fontWeight: 500 }}>{apt.aprendiz_name}</td><td>{apt.professional_name}</td><td>{apt.dependencies?.name || "-"}</td>
+                                    <tr key={apt.id}><td>{apt.scheduled_date}</td><td style={{ fontFamily: "var(--font-mono)", fontWeight: 500 }}>{apt.scheduled_time?.slice(0, 5)}</td><td style={{ fontWeight: 500 }}>{apt.aprendiz_name}</td><td style={{ fontFamily: "var(--font-mono)", fontWeight: 600, color: "var(--primary)" }}>{apt.aprendiz_ficha || "-"}</td><td>{apt.professional_name}</td><td>{apt.dependencies?.name || "-"}</td>
                                     <td><span className={`status-badge status-${apt.status}`}>{STATUS_LABELS[apt.status] || apt.status}</span></td>
                                     <td>{apt.status !== "cancelled" && apt.status !== "completed" && <button onClick={() => setCancelConfirmId(apt.id)} className="btn-danger btn-sm">Cancelar</button>}</td></tr>
                                 ))}

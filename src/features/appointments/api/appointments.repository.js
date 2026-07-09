@@ -39,7 +39,7 @@ export class AppointmentRepository {
 
     const { data: profiles } = await supabase
       .from("profiles")
-      .select("id, full_name, document_number")
+      .select("id, full_name, document_number, ficha")
       .in("id", userIds);
 
     const profilesMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
@@ -61,7 +61,7 @@ export class AppointmentRepository {
       const userIds = [data.user_id, data.professional_id].filter(Boolean);
       const { data: profiles } = await supabase
         .from("profiles")
-        .select("id, full_name, document_number")
+        .select("id, full_name, document_number, ficha")
         .in("id", userIds);
       const profilesMap = Object.fromEntries((profiles || []).map((p) => [p.id, p]));
       return joinApprentices([data], profilesMap)[0];

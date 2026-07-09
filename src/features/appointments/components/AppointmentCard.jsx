@@ -1,6 +1,6 @@
 ﻿import { format } from "date-fns";
 import { es } from "date-fns/locale";
-import { Calendar, Clock, MapPin, FileText, User, StickyNote, Eye, RefreshCw } from "lucide-react";
+import { Calendar, Clock, MapPin, FileText, User, StickyNote, Eye, RefreshCw, Hash } from "lucide-react";
 
 const statusLabels = { pending: "Pendiente", confirmed: "Confirmada", completed: "Completada", cancelled: "Cancelada", no_show: "No asistio" };
 const statusIcons = { pending: "⏳", confirmed: "✅", completed: "✔️", cancelled: "❌", no_show: "🚫" };
@@ -35,6 +35,7 @@ export function AppointmentCard({ appointment, isAprendiz, onCancel, onViewDetai
         <p><MapPin size={14} /><strong>Dependencia:</strong> {appointment.dependencies?.name || "Sin asignar"}</p>
         <p><FileText size={14} /><strong>Motivo:</strong> {appointment.reason || "Sin motivo"}</p>
         {!isAprendiz && appointment.aprendiz && <p><User size={14} /><strong>Aprendiz:</strong> {appointment.aprendiz.full_name}</p>}
+        {!isAprendiz && appointment.aprendiz?.ficha && <p><Hash size={14} /><strong>Ficha:</strong> <span style={{ fontFamily: "var(--font-mono)", fontWeight: 600 }}>{appointment.aprendiz.ficha}</span></p>}
         {appointment.notes && <p><StickyNote size={14} /><strong>Notas:</strong> {appointment.notes}</p>}
       </div>
     </div>
