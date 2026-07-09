@@ -1,4 +1,4 @@
-﻿import { useState } from "react";
+﻿import { useState, useEffect } from "react";
 import { supabase } from "../../../lib/supabase";
 import { useAuth } from "../../../providers/Authproviders";
 import { useNavigate, Link } from "react-router-dom";
@@ -12,8 +12,18 @@ export default function Login() {
     const [showReset, setShowReset] = useState(false);
     const [resetEmail, setResetEmail] = useState("");
     const [sendingReset, setSendingReset] = useState(false);
-    const { signIn, error } = useAuth();
+    const { signIn, error, profile } = useAuth();
     const navigate = useNavigate();
+
+    // Redirigir segun el perfil real de la DB (no de user_metadata)
+    useEffect(() => {
+        if (!profile) return;
+        const role = profile.role_id || "APRENDIZ";
+        if (role === "SUPERADMIN") navigate("/admin", { replace: true });
+        else if (role === "COORDINACION") navigate("/coordination", { replace: true });
+        else if (["PSICOLOGIA", "ENFERMERIA", "TRABAJO_SOCIAL"].includes(role)) navigate("/professional", { replace: true });
+        else navigate("/dashboard", { replace: true });
+    }, [profile, navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -22,12 +32,7 @@ export default function Login() {
         setLoading(false);
         if (result.success) {
             toast.success("Sesion iniciada correctamente");
-            const meta = result.data?.user?.user_metadata;
-            const role = meta?.role_id || "APRENDIZ";
-            if (role === "SUPERADMIN") navigate("/admin");
-            else if (role === "COORDINACION") navigate("/coordination");
-            else if (["PSICOLOGIA", "ENFERMERIA", "TRABAJO_SOCIAL"].includes(role)) navigate("/professional");
-            else navigate("/dashboard");
+            // La redireccion ahora la maneja el useEffect que observa profile
         }
     };
 

@@ -59,8 +59,7 @@ export default function Sidebar() {
 
     const navItems = [];
     if (isAprendiz()) {
-        navItems.push({ to: "/dashboard", icon: Home, label: "Inicio" });
-        navItems.push({ to: "/dashboard", icon: Calendar, label: "Mis Citas", badge: pendingCount });
+        navItems.push({ to: "/dashboard", icon: Home, label: "Inicio", badge: pendingCount });
     }
     if (isProfessional()) {
         navItems.push({ to: "/professional", icon: ClipboardCheck, label: "Mi Agenda", badge: pendingCount });

@@ -173,7 +173,7 @@ export function Authprovider({ children }) {
     // role_id es TEXT directo ("APRENDIZ", "SUPERADMIN", etc.)
     const roleName = profile?.role_id || null;
 
-    const hashRole = (requiredRoles) => {
+    const hasRole = (requiredRoles) => {
         if (!roleName) return false;
         if (Array.isArray(requiredRoles)) {
             return requiredRoles.includes(roleName);
@@ -181,10 +181,10 @@ export function Authprovider({ children }) {
         return roleName === requiredRoles;
     };
 
-    const isAdmin = () => hashRole("SUPERADMIN");
-    const isCoordination = () => hashRole(["COORDINACION", "SUPERADMIN"]);
-    const isProfessional = () => hashRole(["PSICOLOGIA", "ENFERMERIA", "TRABAJO_SOCIAL"]);
-    const isAprendiz = () => hashRole("APRENDIZ");
+    const isAdmin = () => hasRole("SUPERADMIN");
+    const isCoordination = () => hasRole(["COORDINACION", "SUPERADMIN"]);
+    const isProfessional = () => hasRole(["PSICOLOGIA", "ENFERMERIA", "TRABAJO_SOCIAL"]);
+    const isAprendiz = () => hasRole("APRENDIZ");
 
     const value = {
         user,
@@ -194,7 +194,7 @@ export function Authprovider({ children }) {
         signIn,
         signUp,
         signOut,
-        hashRole,
+        hasRole,
         isAdmin,
         isCoordination,
         isProfessional,
