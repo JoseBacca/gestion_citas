@@ -29,3 +29,4 @@ supabase/.temp/
 
 # Test files
 src/test/
+.vercel
